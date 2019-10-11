@@ -155,7 +155,7 @@ export function mimeWordEncode (data, mimeWordEncoding = 'Q', fromCharset = 'UTF
     parts = parts.map(encode).map(encodeBase64)
   }
 
-  const prefix = '=?UTF-8?' + mimeWordEncoding + '?'
+  const prefix = '=?' + fromCharset + '?' + mimeWordEncoding + '?'
   const suffix = '?= '
   return parts.map(p => prefix + p + suffix).join('').trim()
 }
@@ -189,7 +189,7 @@ export function mimeWordsEncode (data = '', mimeWordEncoding = 'Q', fromCharset 
  * @return {String} Decoded unicode string
  */
 export function mimeWordDecode (str = '') {
-  const match = str.match(/^=\?([\w_\-*]+)\?([QqBb])\?([^?]*)\?=$/i)
+  const match = str.match(/^=\?([\w_.\-*]+)\?([QqBb])\?([^?]*)\?=$/i)
   if (!match) return str
 
   // RFC2231 added language tag to the encoding
